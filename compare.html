@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Compare Features - The Iris Collection</title>
+<script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(135deg, #f0f2f0 0%, #e8eae7 100%);
+    font-family: Georgia, serif;
+    color: #333333;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+  .company {
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #888888;
+    font-family: Helvetica, sans-serif;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+  .divider {
+    display: flex; align-items: center; gap: 10px;
+    width: 150px; justify-content: center;
+    margin: 0 auto 1.2rem;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: #a89de8; }
+  .divider-dot { width: 4px; height: 4px; border-radius: 50%; background: #a89de8; }
+  .title {
+    font-size: clamp(24px, 8vw, 28px);
+    font-weight: 400;
+    color: #333333; 
+    margin-bottom: 0.3rem;
+  }
+  .title span { color: #a89de8; font-weight: 600; }
+  .subtitle {
+    font-size: clamp(11px, 3vw, 12px);
+    color: #888888;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .chart-section {
+    margin-bottom: 3.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    animation-delay: 0.4s;
+    background: white;
+    padding: clamp(1.2rem, 4vw, 1.8rem);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+  }
+  .chart-section:hover {
+    box-shadow: 0 8px 20px rgba(168, 157, 232, 0.2);
+    transform: translateY(-4px);
+  }
+  .chart-number {
+    display: inline-block;
+    background: linear-gradient(135deg, #a89de8, #7f77dd);
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    text-align: center;
+    line-height: 32px;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 0.8rem;
+    font-family: Helvetica, sans-serif;
+  }
+  .chart-label {
+    font-size: clamp(13px, 4vw, 14px);
+    font-weight: 600;
+    color: #333333;
+    font-family: Georgia, serif;
+    margin-bottom: 1.2rem;
+  }
+  .plotly-chart {
+    width: 100%;
+    margin-bottom: 1.2rem;
+  }
+  .insight {
+    font-size: clamp(11px, 2.5vw, 12px);
+    color: #666666;
+    font-family: Helvetica, sans-serif;
+    line-height: 1.6;
+    border-left: 2.5px solid #a89de8;
+    padding: 0.9rem 0.9rem 0.9rem 1rem;
+    background: #faf8fb;
+    border-radius: 4px;
+  }
+  .button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2.5rem auto;
+  }
+  .btn {
+    display: inline-block;
+    padding: clamp(8px, 2vw, 10px) clamp(30px, 6vw, 35px);
+    border: none;
+    font-size: clamp(10px, 2.5vw, 11px);
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: fit-content;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .back-btn {
+    background: linear-gradient(135deg, #4fcf9a, #2aaa7a);
+    color: white;
+  }
+  .back-btn:hover { 
+    background: linear-gradient(135deg, #2aaa7a, #1a8a5a);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(79, 207, 154, 0.25);
+  }
+  
+  @media (max-width: 768px) {
+    body { padding: 2rem 1.2rem; }
+    .header { margin-bottom: 2.5rem; }
+    .chart-section { margin-bottom: 2.5rem; }
+  }
+  
+  @media (max-width: 480px) {
+    body { padding: 1.5rem 1rem; }
+    .header { margin-bottom: 2rem; }
+  }
+  
+  @keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <p class="company">Synent Technologies</p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+    <h1 class="title">Feature <span>Correlation</span></h1>
+    <p class="subtitle">Understanding relationships between measurements</p>
+  </div>
+
+  <div class="chart-section">
+    <div class="chart-number">04</div>
+    <p class="chart-label">Feature Correlation Heatmap</p>
+    <div class="plotly-chart">
+    <div>                        <script>window.PlotlyConfig = {MathJaxConfig: 'local'};</script>
+        <script charset="utf-8" src="https://cdn.plot.ly/plotly-3.5.0.min.js" integrity="sha256-fHbNLP+GlIXN+efbQec78UkemUz3NJp7UmfGxC1tNxs=" crossorigin="anonymous"></script>                <div id="ec3300da-0705-47c6-9aae-826d1c082309" class="plotly-graph-div" style="height:500px; width:100%;"></div>            <script>                window.PLOTLYENV=window.PLOTLYENV || {};                                if (document.getElementById("ec3300da-0705-47c6-9aae-826d1c082309")) {                    Plotly.newPlot(                        "ec3300da-0705-47c6-9aae-826d1c082309",                        [{"colorbar":{"title":{"text":"Correlation"}},"colorscale":[[0.0,"rgb(247,252,245)"],[0.125,"rgb(229,245,224)"],[0.25,"rgb(199,233,192)"],[0.375,"rgb(161,217,155)"],[0.5,"rgb(116,196,118)"],[0.625,"rgb(65,171,93)"],[0.75,"rgb(35,139,69)"],[0.875,"rgb(0,109,44)"],[1.0,"rgb(0,68,27)"]],"hovertemplate":"%{x} vs %{y}\u003cbr\u003eCorrelation: %{z:.3f}\u003cextra\u003e\u003c\u002fextra\u003e","text":{"dtype":"f8","bdata":"AAAAAAAA8D9HWdmpDRm+v9Mdsyxo5es\u002fcXls3pIs6j9HWdmpDRm+vwAAAAAAAPA\u002fWT8ZC5Br279BiZ12m27Xv9Mdsyxo5es\u002fWT8ZC5Br278AAAAAAADwP7hdSirLz+4\u002fcXls3pIs6j9BiZ12m27Xv7hdSirLz+4\u002fAAAAAAAA8D8=","shape":"4, 4"},"textfont":{"size":11},"texttemplate":"%{text:.2f}","x":["sepal length (cm)","sepal width (cm)","petal length (cm)","petal width (cm)"],"y":["sepal length (cm)","sepal width (cm)","petal length (cm)","petal width (cm)"],"z":{"dtype":"f8","bdata":"AAAAAAAA8D9HWdmpDRm+v9Mdsyxo5es\u002fcXls3pIs6j9HWdmpDRm+vwAAAAAAAPA\u002fWT8ZC5Br279BiZ12m27Xv9Mdsyxo5es\u002fWT8ZC5Br278AAAAAAADwP7hdSirLz+4\u002fcXls3pIs6j9BiZ12m27Xv7hdSirLz+4\u002fAAAAAAAA8D8=","shape":"4, 4"},"zmax":1,"zmin":-1,"type":"heatmap"}],                        {"template":{"data":{"histogram2dcontour":[{"type":"histogram2dcontour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"choropleth":[{"type":"choropleth","colorbar":{"outlinewidth":0,"ticks":""}}],"histogram2d":[{"type":"histogram2d","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"heatmap":[{"type":"heatmap","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"contourcarpet":[{"type":"contourcarpet","colorbar":{"outlinewidth":0,"ticks":""}}],"contour":[{"type":"contour","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"surface":[{"type":"surface","colorbar":{"outlinewidth":0,"ticks":""},"colorscale":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]]}],"mesh3d":[{"type":"mesh3d","colorbar":{"outlinewidth":0,"ticks":""}}],"scatter":[{"fillpattern":{"fillmode":"overlay","size":10,"solidity":0.2},"type":"scatter"}],"parcoords":[{"type":"parcoords","line":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolargl":[{"type":"scatterpolargl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"bar":[{"error_x":{"color":"#2a3f5f"},"error_y":{"color":"#2a3f5f"},"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"bar"}],"scattergeo":[{"type":"scattergeo","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterpolar":[{"type":"scatterpolar","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"histogram":[{"marker":{"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"histogram"}],"scattergl":[{"type":"scattergl","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatter3d":[{"type":"scatter3d","line":{"colorbar":{"outlinewidth":0,"ticks":""}},"marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermap":[{"type":"scattermap","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattermapbox":[{"type":"scattermapbox","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scatterternary":[{"type":"scatterternary","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"scattercarpet":[{"type":"scattercarpet","marker":{"colorbar":{"outlinewidth":0,"ticks":""}}}],"carpet":[{"aaxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"baxis":{"endlinecolor":"#2a3f5f","gridcolor":"white","linecolor":"white","minorgridcolor":"white","startlinecolor":"#2a3f5f"},"type":"carpet"}],"table":[{"cells":{"fill":{"color":"#EBF0F8"},"line":{"color":"white"}},"header":{"fill":{"color":"#C8D4E3"},"line":{"color":"white"}},"type":"table"}],"barpolar":[{"marker":{"line":{"color":"#E5ECF6","width":0.5},"pattern":{"fillmode":"overlay","size":10,"solidity":0.2}},"type":"barpolar"}],"pie":[{"automargin":true,"type":"pie"}]},"layout":{"autotypenumbers":"strict","colorway":["#636efa","#EF553B","#00cc96","#ab63fa","#FFA15A","#19d3f3","#FF6692","#B6E880","#FF97FF","#FECB52"],"font":{"color":"#2a3f5f"},"hovermode":"closest","hoverlabel":{"align":"left"},"paper_bgcolor":"white","plot_bgcolor":"#E5ECF6","polar":{"bgcolor":"#E5ECF6","angularaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"radialaxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"ternary":{"bgcolor":"#E5ECF6","aaxis":{"gridcolor":"white","linecolor":"white","ticks":""},"baxis":{"gridcolor":"white","linecolor":"white","ticks":""},"caxis":{"gridcolor":"white","linecolor":"white","ticks":""}},"coloraxis":{"colorbar":{"outlinewidth":0,"ticks":""}},"colorscale":{"sequential":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"sequentialminus":[[0.0,"#0d0887"],[0.1111111111111111,"#46039f"],[0.2222222222222222,"#7201a8"],[0.3333333333333333,"#9c179e"],[0.4444444444444444,"#bd3786"],[0.5555555555555556,"#d8576b"],[0.6666666666666666,"#ed7953"],[0.7777777777777778,"#fb9f3a"],[0.8888888888888888,"#fdca26"],[1.0,"#f0f921"]],"diverging":[[0,"#8e0152"],[0.1,"#c51b7d"],[0.2,"#de77ae"],[0.3,"#f1b6da"],[0.4,"#fde0ef"],[0.5,"#f7f7f7"],[0.6,"#e6f5d0"],[0.7,"#b8e186"],[0.8,"#7fbc41"],[0.9,"#4d9221"],[1,"#276419"]]},"xaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"yaxis":{"gridcolor":"white","linecolor":"white","ticks":"","title":{"standoff":15},"zerolinecolor":"white","automargin":true,"zerolinewidth":2},"scene":{"xaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"yaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2},"zaxis":{"backgroundcolor":"#E5ECF6","gridcolor":"white","linecolor":"white","showbackground":true,"ticks":"","zerolinecolor":"white","gridwidth":2}},"shapedefaults":{"line":{"color":"#2a3f5f"}},"annotationdefaults":{"arrowcolor":"#2a3f5f","arrowhead":0,"arrowwidth":1},"geo":{"bgcolor":"white","landcolor":"#E5ECF6","subunitcolor":"white","showland":true,"showlakes":true,"lakecolor":"white"},"title":{"x":0.05},"mapbox":{"style":"light"}}},"font":{"family":"Georgia, serif","color":"#333333","size":11},"title":{"text":"Feature Correlation Heatmap","font":{"size":14}},"margin":{"l":120,"r":80,"t":80,"b":120},"xaxis":{"side":"bottom"},"yaxis":{"autorange":"reversed"},"plot_bgcolor":"#fafbf9","paper_bgcolor":"#fafbf9","height":500},                        {"responsive": true, "displayModeBar": false}                    )                };            </script>        </div>
+</div>
+    <p class="insight">Darker green indicates strong positive correlation. Shows how different measurements are related: for example, petal length and sepal length are highly correlated (0.87), meaning larger flowers tend to have larger both petals and sepals.</p>
+  </div>
+
+  <div class="button-group">
+    <a href="main.html" class="btn back-btn">Back to Analysis</a>
+  </div>
+</div>
+
+</body>
+</html>

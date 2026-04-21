@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Insights - The Iris Collection</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(135deg, #f0f2f0 0%, #e8eae7 100%);
+    font-family: Georgia, serif;
+    color: #333333;
+    padding: 2.5rem 1.5rem;
+    min-height: 100vh;
+  }
+  .container {
+    max-width: 800px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 3rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    animation-delay: 0.2s;
+  }
+  .company {
+    font-size: 10px; letter-spacing: 0.15em;
+    text-transform: uppercase; color: #888888;
+    font-family: Helvetica, sans-serif;
+    margin-bottom: 0.8rem;
+    font-weight: 500;
+  }
+  .divider {
+    display: flex; align-items: center; gap: 10px;
+    width: 150px; justify-content: center;
+    margin: 0 auto 1.2rem;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: #e07aaa; }
+  .divider-dot { width: 4px; height: 4px; border-radius: 50%; background: #e07aaa; }
+  .title {
+    font-size: clamp(24px, 8vw, 28px);
+    font-weight: 400;
+    color: #333333;
+    margin-bottom: 0.3rem;
+  }
+  .title span { color: #e07aaa; font-weight: 600; }
+  .subtitle {
+    font-size: clamp(11px, 3vw, 12px);
+    color: #888888;
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.01em;
+  }
+  .insight-section {
+    margin-bottom: 2.5rem;
+    opacity: 0;
+    animation: fadeIn 0.8s ease forwards;
+    background: white;
+    padding: clamp(1.2rem, 4vw, 1.8rem);
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+    transition: all 0.3s ease;
+    border-left: 4px solid #e07aaa;
+  }
+  .insight-section:nth-child(2) { animation-delay: 0.4s; }
+  .insight-section:nth-child(3) { animation-delay: 0.6s; }
+  .insight-section:nth-child(4) { animation-delay: 0.8s; }
+  .insight-section:nth-child(5) { animation-delay: 1.0s; }
+  .insight-section:nth-child(6) { animation-delay: 1.2s; }
+  .insight-section:nth-child(7) { animation-delay: 1.4s; }
+  .insight-section:hover {
+    box-shadow: 0 8px 20px rgba(224, 122, 170, 0.2);
+    transform: translateY(-4px);
+  }
+  .insight-title {
+    font-size: 16px;
+    font-weight: 600;
+    color: #e07aaa;
+    margin-bottom: 0.8rem;
+    font-family: Georgia, serif;
+  }
+  .insight-content {
+    font-size: 13px;
+    color: #666666;
+    font-family: Helvetica, sans-serif;
+    line-height: 1.7;
+  }
+  .key-point {
+    background: #fef7fa;
+    padding: 1rem;
+    border-radius: 6px;
+    margin-top: 1rem;
+    border-left: 3px solid #e07aaa;
+    font-size: 12px;
+    color: #555555;
+  }
+  .button-group {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin: 2.5rem auto;
+  }
+  .btn {
+    display: inline-block;
+    padding: clamp(8px, 2vw, 10px) clamp(30px, 6vw, 35px);
+    border: none;
+    font-size: clamp(10px, 2.5vw, 11px);
+    font-family: Helvetica, sans-serif;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    width: fit-content;
+    text-decoration: none;
+    border-radius: 6px;
+    font-weight: 600;
+    transition: all 0.3s ease;
+  }
+  .back-btn {
+    background: linear-gradient(135deg, #4fcf9a, #2aaa7a);
+    color: white;
+  }
+  .back-btn:hover {
+    background: linear-gradient(135deg, #2aaa7a, #1a8a5a);
+    transform: translateY(-2px);
+    box-shadow: 0 3px 10px rgba(79, 207, 154, 0.25);
+  }
+  
+  @keyframes fadeIn { to { opacity: 1; } }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="header">
+    <p class="company">Synent Technologies</p>
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-dot"></div>
+      <div class="divider-line"></div>
+    </div>
+    <h1 class="title">Key <span>Insights</span></h1>
+    <p class="subtitle">Understanding what the data tells us</p>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> What Does the Bar Chart Show?</p>
+    <p class="insight-content">
+      The bar chart compares average measurements for each of the 4 features (sepal length, sepal width, petal length, petal width) across the three species.
+    </p>
+    <div class="key-point">
+      <strong>Key Finding:</strong> Setosa flowers are noticeably smaller than Virginica, with Versicolor in between. This suggests we can use flower size as a distinguishing characteristic between species.
+    </div>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> What Does the Histogram Show?</p>
+    <p class="insight-content">
+      The histogram displays the distribution of petal lengths for each species. It shows the frequency (count) of flowers at different petal length ranges.
+    </p>
+    <div class="key-point">
+      <strong>Key Finding:</strong> Setosa petals form a distinct cluster around 1-1.7 cm, while Versicolor and Virginica have much longer petals (3-7 cm) with some overlap. Petal length is an excellent feature for identifying Setosa from the others.
+    </div>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> What Does the Scatter Plot Show?</p>
+    <p class="insight-content">
+      The scatter plot visualizes the relationship between sepal length and sepal width, with each species shown in different colors.
+    </p>
+    <div class="key-point">
+      <strong>Key Finding:</strong> Setosa species occupies a distinct region (compact cluster), making it easily separable. Versicolor and Virginica overlap significantly, meaning sepal measurements alone aren't enough to distinguish between them.
+    </div>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> What Does the Correlation Heatmap Show?</p>
+    <p class="insight-content">
+      The heatmap shows how strongly features are related to each other. Values close to 1 mean strong positive correlation (both increase together), values close to -1 mean inverse relationship, and values close to 0 mean no relationship.
+    </p>
+    <div class="key-point">
+      <strong>Key Finding:</strong> Petal length and petal width are highly correlated (0.96), as are petal length and sepal length (0.87). This means larger flowers tend to have larger petals AND larger sepals, so these features carry overlapping information.
+    </div>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> Overall Conclusions</p>
+    <p class="insight-content">
+      <strong>1. Species Separation:</strong> Setosa is clearly distinct from the other two species across all measurements. Versicolor and Virginica are more similar and harder to distinguish.<br><br>
+      <strong>2. Most Useful Features:</strong> Petal length and petal width are the best features for identifying species, especially for separating Setosa from others.<br><br>
+      <strong>3. Feature Relationships:</strong> Petal measurements are highly correlated, meaning we don't gain much new information by having both. Sepal width is somewhat independent, providing unique information.<br><br>
+      <strong>4. Data Quality:</strong> The dataset shows clear patterns and is well-suited for machine learning classification tasks.
+    </p>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> Practical Applications</p>
+    <p class="insight-content">
+      This analysis demonstrates how exploratory data analysis (EDA) helps us understand data before building predictive models. Understanding feature relationships and species differences is crucial for:<br><br>
+      ✓ Building effective classification models<br>
+      ✓ Choosing the right features for prediction<br>
+      ✓ Understanding biological patterns in nature<br>
+      ✓ Making data-driven decisions
+    </p>
+  </div>
+
+  <div class="insight-section">
+    <p class="insight-title"> What We Learned</p>
+    <p class="insight-content">
+      This Iris dataset project demonstrates the complete data science workflow: data loading, cleaning, exploratory analysis, visualization, and interpretation. By examining the data from multiple angles (bar charts, histograms, scatter plots, and correlation matrices), we gained comprehensive insights into the underlying patterns and relationships.
+    </p>
+    <div class="key-point">
+      <strong>Remember:</strong> Good data visualization and analysis skills are as important as machine learning skills in data science!
+    </div>
+  </div>
+
+  <div class="button-group">
+    <a href="main.html" class="btn back-btn">Back to Analysis</a>
+  </div>
+</div>
+
+</body>
+</html>
