@@ -4,22 +4,14 @@ import plotly.express as px
 from sklearn.datasets import load_iris
 import webbrowser
 import os
-
-# ── Load Dataset ──────────────────────────────────────────
 iris = load_iris()
 df = pd.DataFrame(iris.data, columns=iris.feature_names)
 df['species'] = pd.Categorical.from_codes(iris.target, iris.target_names)
-
-# ── Save as CSV ───────────────────────────────────────────
 df.to_csv('iris_dataset.csv', index=False)
 print("Dataset saved as iris_dataset.csv")
-
 colors_map = {'setosa': '#4fcf9a', 'versicolor': '#a89de8', 'virginica': '#e07aaa'}
-
-# ── Chart 1: Bar Chart ────────────────────────────────────
 avg = df.groupby('species', observed=True)[iris.feature_names].mean()
 fig1 = go.Figure()
-
 for species in iris.target_names:
     fig1.add_trace(go.Bar(
         name=species,
@@ -29,7 +21,6 @@ for species in iris.target_names:
         hovertemplate='<b>%{x}</b><br>Value: %{y:.2f} cm<extra></extra>',
         marker_line=dict(width=0)
     ))
-
 fig1.update_layout(
     title='Average Feature by Species',
     xaxis_title='Features',
@@ -45,13 +36,9 @@ fig1.update_layout(
     showlegend=True,
     legend=dict(bgcolor='rgba(255,255,255,0.9)', bordercolor='#e0e0e0', borderwidth=1)
 )
-
 fig1.write_html('chart1.html', include_plotlyjs='cdn', config={'responsive': True, 'displayModeBar': False})
 chart1_html = open('chart1.html').read().split('<body>')[1].split('</body>')[0]
-
-# ── Chart 2: Histogram ────────────────────────────────────
 fig2 = go.Figure()
-
 for i, species in enumerate(iris.target_names):
     subset = df[df['species'] == species]['petal length (cm)']
     fig2.add_trace(go.Histogram(
@@ -62,7 +49,6 @@ for i, species in enumerate(iris.target_names):
         nbinsx=12,
         hovertemplate='Petal Length: %{x:.2f} cm<br>Count: %{y}<extra></extra>'
     ))
-
 fig2.update_layout(
     title='Petal Length Distribution',
     xaxis_title='Petal Length (cm)',
@@ -78,13 +64,9 @@ fig2.update_layout(
     showlegend=True,
     legend=dict(bgcolor='rgba(255,255,255,0.9)', bordercolor='#e0e0e0', borderwidth=1)
 )
-
 fig2.write_html('chart2.html', include_plotlyjs='cdn', config={'responsive': True, 'displayModeBar': False})
 chart2_html = open('chart2.html').read().split('<body>')[1].split('</body>')[0]
-
-# ── Chart 3: Scatter Plot ─────────────────────────────────
 fig3 = go.Figure()
-
 for species in iris.target_names:
     subset = df[df['species'] == species]
     fig3.add_trace(go.Scatter(
@@ -100,7 +82,6 @@ for species in iris.target_names:
         ),
         hovertemplate='<b>%{fullData.name}</b><br>Sepal Length: %{x:.2f} cm<br>Sepal Width: %{y:.2f} cm<extra></extra>'
     ))
-
 fig3.update_layout(
     title='Sepal Length vs Sepal Width',
     xaxis_title='Sepal Length (cm)',
@@ -115,16 +96,11 @@ fig3.update_layout(
     showlegend=True,
     legend=dict(bgcolor='rgba(255,255,255,0.9)', bordercolor='#e0e0e0', borderwidth=1)
 )
-
 fig3.update_xaxes(showgrid=True, gridwidth=1, gridcolor='#e5e5e5')
 fig3.update_yaxes(showgrid=True, gridwidth=1, gridcolor='#e5e5e5')
-
 fig3.write_html('chart3.html', include_plotlyjs='cdn', config={'responsive': True, 'displayModeBar': False})
 chart3_html = open('chart3.html').read().split('<body>')[1].split('</body>')[0]
-
-# ── Chart 4: Correlation Heatmap ──────────────────────────
 corr_matrix = df[iris.feature_names].corr()
-
 fig4 = go.Figure(data=go.Heatmap(
     z=corr_matrix.values,
     x=iris.feature_names,
@@ -137,7 +113,6 @@ fig4 = go.Figure(data=go.Heatmap(
     colorbar=dict(title='Correlation'),
     hovertemplate='%{x} vs %{y}<br>Correlation: %{z:.3f}<extra></extra>'
 ))
-
 fig4.update_layout(
     title='Feature Correlation Heatmap',
     plot_bgcolor='#fafbf9',
@@ -149,11 +124,8 @@ fig4.update_layout(
     xaxis=dict(side='bottom'),
     yaxis=dict(autorange='reversed')
 )
-
 fig4.write_html('chart4.html', include_plotlyjs='cdn', config={'responsive': True, 'displayModeBar': False})
 chart4_html = open('chart4.html').read().split('<body>')[1].split('</body>')[0]
-
-# ── Generate main.html ────────────────────────────────────
 html_content = f'''<!DOCTYPE html>
 <html>
 <head>
@@ -311,13 +283,11 @@ html_content = f'''<!DOCTYPE html>
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(79, 207, 154, 0.25);
   }}
-  
   @media (max-width: 768px) {{
     body {{ padding: 2rem 1.2rem; }}
     .header {{ margin-bottom: 2.5rem; }}
     .chart-section {{ margin-bottom: 2.5rem; }}
   }}
-  
   @media (max-width: 480px) {{
     body {{ padding: 1.5rem 1rem; }}
     .header {{ margin-bottom: 2rem; }}
@@ -333,12 +303,10 @@ html_content = f'''<!DOCTYPE html>
       padding: 1.2rem;
     }}
   }}
-  
   @keyframes fadeIn {{ to {{ opacity: 1; }} }}
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <p class="company">Synent Technologies</p>
@@ -350,44 +318,35 @@ html_content = f'''<!DOCTYPE html>
     <h1 class="title">The <span>Iris</span> Collection</h1>
     <p class="subtitle">A visual journey through nature's data</p>
   </div>
-
   <div class="chart-section">
     <div class="chart-number">01</div>
     <p class="chart-label">Bar Chart - Average Features by Species</p>
     <div class="plotly-chart">{chart1_html}</div>
     <p class="insight">Hover over bars to see exact values. Setosa has the smallest petal dimensions while Virginica has the largest.</p>
   </div>
-
   <div class="chart-section">
     <div class="chart-number">02</div>
     <p class="chart-label">Histogram - Petal Length Distribution</p>
     <div class="plotly-chart">{chart2_html}</div>
     <p class="insight">Hover over bars to see frequency counts. Setosa petals are clearly shorter, around 1.5cm.</p>
   </div>
-
   <div class="chart-section">
     <div class="chart-number">03</div>
     <p class="chart-label">Scatter Plot - Sepal Dimensions Relationship</p>
     <div class="plotly-chart">{chart3_html}</div>
     <p class="insight">Hover over points to see exact measurements. Setosa is clearly separated from other species.</p>
   </div>
-
   <div class="button-group">
     <a href="compare.html" class="btn compare-btn">Compare Features</a>
     <a href="insights.html" class="btn insights-btn">View Insights</a>
     <a href="index.html" class="btn back-btn">Back to Home</a>
   </div>
 </div>
-
 </body>
 </html>'''
-
 with open("main.html", "w", encoding='utf-8') as f:
     f.write(html_content)
-
 print("main.html generated successfully!")
-
-# ── Generate compare.html ─────────────────────────────────
 compare_html_content = f'''<!DOCTYPE html>
 <html>
 <head>
@@ -525,23 +484,19 @@ compare_html_content = f'''<!DOCTYPE html>
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(79, 207, 154, 0.25);
   }}
-  
   @media (max-width: 768px) {{
     body {{ padding: 2rem 1.2rem; }}
     .header {{ margin-bottom: 2.5rem; }}
     .chart-section {{ margin-bottom: 2.5rem; }}
   }}
-  
   @media (max-width: 480px) {{
     body {{ padding: 1.5rem 1rem; }}
     .header {{ margin-bottom: 2rem; }}
   }}
-  
   @keyframes fadeIn {{ to {{ opacity: 1; }} }}
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <p class="company">Synent Technologies</p>
@@ -553,28 +508,21 @@ compare_html_content = f'''<!DOCTYPE html>
     <h1 class="title">Feature <span>Correlation</span></h1>
     <p class="subtitle">Understanding relationships between measurements</p>
   </div>
-
   <div class="chart-section">
     <div class="chart-number">04</div>
     <p class="chart-label">Feature Correlation Heatmap</p>
     <div class="plotly-chart">{chart4_html}</div>
     <p class="insight">Darker green indicates strong positive correlation. Shows how different measurements are related: for example, petal length and sepal length are highly correlated (0.87), meaning larger flowers tend to have larger both petals and sepals.</p>
   </div>
-
   <div class="button-group">
     <a href="main.html" class="btn back-btn">Back to Analysis</a>
   </div>
 </div>
-
 </body>
 </html>'''
-
 with open("compare.html", "w", encoding='utf-8') as f:
     f.write(compare_html_content)
-
 print("compare.html generated successfully!")
-
-# ── Generate insights.html ────────────────────────────────
 insights_html_content = '''<!DOCTYPE html>
 <html>
 <head>
@@ -703,13 +651,11 @@ insights_html_content = '''<!DOCTYPE html>
     background: linear-gradient(135deg, #2aaa7a, #1a8a5a);
     transform: translateY(-2px);
     box-shadow: 0 3px 10px rgba(79, 207, 154, 0.25);
-  }
-  
+  } 
   @keyframes fadeIn { to { opacity: 1; } }
 </style>
 </head>
 <body>
-
 <div class="container">
   <div class="header">
     <p class="company">Synent Technologies</p>
@@ -721,7 +667,6 @@ insights_html_content = '''<!DOCTYPE html>
     <h1 class="title">Key <span>Insights</span></h1>
     <p class="subtitle">Understanding what the data tells us</p>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> What Does the Bar Chart Show?</p>
     <p class="insight-content">
@@ -731,7 +676,6 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>Key Finding:</strong> Setosa flowers are noticeably smaller than Virginica, with Versicolor in between. This suggests we can use flower size as a distinguishing characteristic between species.
     </div>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> What Does the Histogram Show?</p>
     <p class="insight-content">
@@ -741,7 +685,6 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>Key Finding:</strong> Setosa petals form a distinct cluster around 1-1.7 cm, while Versicolor and Virginica have much longer petals (3-7 cm) with some overlap. Petal length is an excellent feature for identifying Setosa from the others.
     </div>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> What Does the Scatter Plot Show?</p>
     <p class="insight-content">
@@ -751,7 +694,6 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>Key Finding:</strong> Setosa species occupies a distinct region (compact cluster), making it easily separable. Versicolor and Virginica overlap significantly, meaning sepal measurements alone aren't enough to distinguish between them.
     </div>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> What Does the Correlation Heatmap Show?</p>
     <p class="insight-content">
@@ -761,7 +703,6 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>Key Finding:</strong> Petal length and petal width are highly correlated (0.96), as are petal length and sepal length (0.87). This means larger flowers tend to have larger petals AND larger sepals, so these features carry overlapping information.
     </div>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> Overall Conclusions</p>
     <p class="insight-content">
@@ -771,7 +712,6 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>4. Data Quality:</strong> The dataset shows clear patterns and is well-suited for machine learning classification tasks.
     </p>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> Practical Applications</p>
     <p class="insight-content">
@@ -782,7 +722,6 @@ insights_html_content = '''<!DOCTYPE html>
       ✓ Making data-driven decisions
     </p>
   </div>
-
   <div class="insight-section">
     <p class="insight-title"> What We Learned</p>
     <p class="insight-content">
@@ -792,17 +731,13 @@ insights_html_content = '''<!DOCTYPE html>
       <strong>Remember:</strong> Good data visualization and analysis skills are as important as machine learning skills in data science!
     </div>
   </div>
-
   <div class="button-group">
     <a href="main.html" class="btn back-btn">Back to Analysis</a>
   </div>
 </div>
-
 </body>
 </html>'''
-
 with open("insights.html", "w", encoding='utf-8') as f:
     f.write(insights_html_content)
-
 print("insights.html generated successfully!")
 webbrowser.open("file://" + os.path.abspath("main.html"))
